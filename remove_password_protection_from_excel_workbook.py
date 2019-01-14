@@ -1,3 +1,5 @@
+import win32com.client
+
 #Remove the protection from workbook
 def remove_password_xlsx(filename, pw_str):
     xcl = win32com.client.Dispatch("Excel.Application")
