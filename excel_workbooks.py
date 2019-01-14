@@ -12,6 +12,6 @@ def remove_password_xlsx(filename, pw_str):
 
 import pandas as pd
 
-#Stop truncating printed results
+#Stop Truncating Display of Dataframe in Jupyter
 pd.options.display.max_rows = 4000
 pd.options.display.max_columns = 4000
