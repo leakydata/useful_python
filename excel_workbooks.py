@@ -7,3 +7,11 @@ def remove_password_xlsx(filename, pw_str):
     xcl.DisplayAlerts = False
     wb.SaveAs(filename, None, '', '')
     xcl.Quit()
+
+    
+
+import pandas as pd
+
+#Stop truncating printed results
+pd.options.display.max_rows = 4000
+pd.options.display.max_columns = 4000
