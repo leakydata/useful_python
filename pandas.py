@@ -16,6 +16,12 @@ df['answer_type'] = np.where((df['numeric_answer'] != 'nan'), 1, 0)
 #Find rows that contain a string or part of string and set value of new row to 1
 df['reps_only'] = np.where((df['question'].str.contains("Rep's ONLY", flags=re.IGNORECASE, regex=True)), 'rep', 0)
 
+# Convert two columns into key and value pairs in a newly defined dict
+new_dict = dict(zip(df.Column1, df.Column2))
+
+
+
+
 #########################################################
 #     This section cleans up the workbook/dataframe     #
 #########################################################
