@@ -16,21 +16,24 @@ df['answer_type'] = np.where((df['numeric_answer'] != 'nan'), 1, 0)
 #Find rows that contain a string or part of string and set value of new row to 1
 df['reps_only'] = np.where((df['question'].str.contains("Rep's ONLY", flags=re.IGNORECASE, regex=True)), 'rep', 0)
 
-
-####### This section cleans up the workbook/dataframe
+#########################################################
+#     This section cleans up the workbook/dataframe     #
+#########################################################
 
 # Remove all newline characters from the dataframe
 df = df.replace({r'\s+$': '', r'^\s+': ''}, regex=True).replace(r'\n',  ' ', regex=True)
 
+# Find the row containing a string that is supposed to be a header and copy that row to the column names and remove the row
 def fix_headers(df,identifying_string):
     mask = np.column_stack([df[col].str.contains(r"%s"%identifying_string, na=False) for col in df])
     if len(df.loc[mask.any(axis=1)].index) >= 1:
         row_location = df.loc[mask.any(axis=1)].index[0]
         df.rename(columns=df.iloc[row_location], inplace=True)
         df.drop(df.index[row_location], inplace=True)
-    
+
+# Remove any row containing the letter 'x' repeated more than 6 times    
 def drop_exes(df):
-    mask = np.column_stack([df[col].str.contains(r"xxxxxxxxxx.*", na=False) for col in df])
+    mask = np.column_stack([df[col].str.contains(r"xxxxxxx.*", na=False) for col in df])
     if len(df.loc[mask.any(axis=1)].index) >= 1:
         location = df.loc[mask.any(axis=1)].index[0]
         df.drop(df.index[location], inplace=True)
