@@ -24,7 +24,7 @@ for k, v in df.itertuples(index=False):
 new_dict = dict(zip(df.Column1, df.Column2))
 
 #Select rows that contain int digits only
-df[df['iq'].astype(str).str.isdigit()]
+df[df['column_name'].astype(str).str.isdigit()]
 
 
 #########################################################
