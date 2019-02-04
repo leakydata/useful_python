@@ -23,7 +23,8 @@ for k, v in df.itertuples(index=False):
 # Convert two columns into key and value pairs in a newly defined dict
 new_dict = dict(zip(df.Column1, df.Column2))
 
-
+#Select rows that contain int digits only
+df[df['iq'].astype(str).str.isdigit()]
 
 
 #########################################################
