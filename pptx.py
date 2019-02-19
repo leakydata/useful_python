@@ -42,7 +42,7 @@ if prs.slides[40].shapes[1].chart.has_legend:
             legend.append(prs.slides[40].shapes[1].chart.plots[p].series[s].name)
     
     
-----------------
+#----------------
 # Chart Type
 prs.slides[40].shapes[1].chart.chart_type # COLUMN_STACKED (52)
 prs.slides[40].shapes[1].chart.chart_type._member_name # COLUMN_STACKED
