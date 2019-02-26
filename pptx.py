@@ -52,6 +52,34 @@ prs.slides[40].shapes[1].chart.chart_type._docstring # Stacked Column.
 
 
 
+#------- Smart Shapes i.e. Diagrams ----------
 
+from bs4 import BeautifulSoup
+
+# Get the rIds of chevrons in Diagram (basically where text is likely to be stored
+def get_rIds(slide,shape_num):
+    soup = BeautifulSoup(prs.slides[slide].shapes[shape_num].part.rels.xml)
+    diagram_rIds = []
+    text_data = soup.findAll('relationship', attrs={'target' : re.compile(r'(^\.\./diagrams/drawing[0-9]*\.xml$)')}) 
+    for t in text_data:
+        diagram_rIds.append(t.get('id'))
+    return diagram_rIds
+    
+# Once you have the text about pull out text and combine subfields (specific to my own work and digrams: we use numbers to label)   
+def diagram_text(slide,shape_num,rId):
+    data = prs.slides[slide].shapes[shape_num].part.related_parts[rId].blob
+    soup = BeautifulSoup(data)
+    text_data = soup.findAll('a:t') 
+
+    mydict = {}
+    new_list = [n.contents[0] for n in text_data]
+    digits = [int(idx+1) for idx, val in enumerate(new_list) if val.isdigit()]
+
+    for idx, i in enumerate(digits):
+        if idx != len(digits)-1:
+            mydict[new_list[i-1]] = ''.join(new_list[i:i+1])
+        else:
+            mydict[new_list[i-1]] = ''.join(new_list[i:])
+    return mydict
 
 
