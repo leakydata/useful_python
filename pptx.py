@@ -1,9 +1,20 @@
+########## LIST OF ALL IMPORTS FOR EVERY FUNCTION ##########
+import re
+import numpy as np 
+import pandas as pd
+
 from pptx import Presentation
 from pptx.enum.dml import MSO_FILL, MSO_COLOR_TYPE, MSO_THEME_COLOR ##MSO_THEME_COLOR https://python-pptx.readthedocs.io/en/latest/api/enum/MsoThemeColorIndex.html
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE_TYPE
-## -----------------------------------------------------------
+from pptx.opc.constants import RELATIONSHIP_TYPE as RT
+from pptx.oxml import parse_xml
 
+from collections import Counter
+
+from bs4 import BeautifulSoup
+
+## -----------------------------------------------------------
 
 #Check Shape Type in a slide or slides
 for shape in slide.shapes:
