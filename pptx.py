@@ -1,3 +1,10 @@
+from pptx import Presentation
+from pptx.enum.dml import MSO_FILL, MSO_COLOR_TYPE, MSO_THEME_COLOR ##MSO_THEME_COLOR https://python-pptx.readthedocs.io/en/latest/api/enum/MsoThemeColorIndex.html
+from pptx.dml.color import RGBColor
+from pptx.enum.shapes import MSO_SHAPE_TYPE
+## -----------------------------------------------------------
+
+
 #Check Shape Type in a slide or slides
 for shape in slide.shapes:
   print(shape.shape_type)
