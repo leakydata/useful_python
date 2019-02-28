@@ -67,7 +67,38 @@ prs.slides[40].shapes[1].chart.chart_type._member_name # COLUMN_STACKED
 prs.slides[40].shapes[1].chart.chart_type.real # 52
 prs.slides[40].shapes[1].chart.chart_type._docstring # Stacked Column.
 
+# Pull all the values out of charts and convert them into lists of dicts
+from collections import defaultdict
+for slide_idx,slide in enumerate(prs.slides):
+    for i,shape in enumerate(slide.shapes):
+        chart_data = defaultdict(list) 
+        if shape.shape_type == MSO_SHAPE_TYPE.CHART: # THIS IS WHERE THE CHART SHAPE STARTS (All other shapes are excluded for now)
+            ch = shape.chart 
+            ch_labels = x_labels(ch)
+            ch_series = chart_vals(ch)
+            chart_name = shape.name.upper()
 
+            if len(ch_series) > 0:
+                
+                for s in range(len(ch_series)):
+                    for key, value in zip(ch_labels,ch_series[s]):
+                        chart_data[key].append(value)
+                        
+                if '' in chart_data:
+                        del chart_data['']
+                
+                df = pd.DataFrame.from_dict(chart_data)
+                df.dropna(axis=0,how='all',inplace=True) 
+                final_chart_data = list(df.T.to_dict().values())
+                
+                if ch.has_legend:
+                    legend = get_legend(ch)
+                    if len(get_legend(ch)) == 1 and '' in legend:
+                        final_chart_data = dict(zip(legend,final_chart_data))
+                if bool(final_chart_data):        
+                    print("SLIDE#:",slide_idx+1, "FINAL DATA:", final_chart_data)
+                else:
+                    print("SLIDE#:",slide_idx+1, "FINAL DATA:", "-- EMPTY CHART --")
 
 
 #------- Smart Shapes i.e. Diagrams ----------
