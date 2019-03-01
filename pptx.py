@@ -70,17 +70,16 @@ prs.slides[40].shapes[1].chart.chart_type._docstring # Stacked Column.
 # Pull all the values out of charts and convert them into dicts then dataframes
 from collections import defaultdict
 for slide_idx,slide in enumerate(prs.slides):
+    print("\n\n---------------------------------------------------SLIDE:",slide_idx+1,)
     for i,shape in enumerate(slide.shapes):
-        chart_data = defaultdict(list) 
         
+        chart_data = defaultdict(list) 
         if shape.shape_type == MSO_SHAPE_TYPE.CHART: # THIS IS WHERE THE CHART SHAPE STARTS (All other shapes are excluded for now)
             
             ch = shape.chart 
             ch_labels = x_labels(ch)
             ch_series = chart_vals(ch)
             chart_name = shape.name.upper()
-            
-            print("\n\n----------------- SLIDE:",slide_idx+1,"SHAPE:",i, chart_name,"------------------------------")
             
             if len(ch_series) > 0:
                 empty_column_indexes = []
@@ -115,19 +114,14 @@ for slide_idx,slide in enumerate(prs.slides):
                                 for del_col_idx in empty_column_indexes:
                                     del legend[del_col_idx]
                             final_chart_data = dict(zip(legend, final_chart_data))
-
-                        if type(final_chart_data) is list:
-                            final_chart_data = final_chart_data[0]
-                   
-                    if dict_levels(final_chart_data) > 1:
-                        print(pd.DataFrame.from_dict(final_chart_data))
-                    else:
-                        ind = [str(x) for x in range(len(final_chart_data))]
-                        final_chart_data = dict(zip(ind, [final_chart_data]))
-                        print(pd.DataFrame.from_dict(final_chart_data))
-            else:
-                print("SLIDE#:",slide_idx+1, "FINAL DATA:", "-- EMPTY CHART --")
-
+                            
+                # Check if it is an instance of a list class object            
+                if isinstance(final_chart_data, list):
+                    for l in final_chart_data:
+                        #print(pd.DataFrame.from_dict(l))
+                        print(l)
+                else:
+                    print(pd.DataFrame.from_dict(final_chart_data),"\n")
 
 #------- Smart Shapes i.e. Diagrams ----------
 
