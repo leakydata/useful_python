@@ -82,6 +82,7 @@ for slide_idx,slide in enumerate(prs.slides):
             chart_name = shape.name.upper()
             
             if len(ch_series) > 0:
+                print("\n",chart_name,"\n")
                 empty_column_indexes = []
                 for idx,l in enumerate(ch_series):
                     if all(v is None for v in l):
@@ -117,9 +118,8 @@ for slide_idx,slide in enumerate(prs.slides):
                             
                 # Check if it is an instance of a list class object            
                 if isinstance(final_chart_data, list):
-                    for l in final_chart_data:
-                        #print(pd.DataFrame.from_dict(l))
-                        print(l)
+                    for i,l in enumerate(final_chart_data):
+                        print(pd.DataFrame.from_dict({i:l}),"\n")
                 else:
                     print(pd.DataFrame.from_dict(final_chart_data),"\n")
 
