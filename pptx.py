@@ -163,20 +163,21 @@ def get_rIds(slide):
     return diagram_rIds
     
 # Once you have the text about pull out text and combine subfields (specific to my own work and digrams: we use numbers to label)       
-def diagram_text(slide,shape_num,rId):
-    data = prs.slides[slide].shapes[shape_num].part.related_parts[rId].blob
+def diagram_text(slide,rId):
+    data = prs.slides[slide].shapes[0].part.related_parts[rId].blob
     soup = BeautifulSoup(data)
     text_data = soup.findAll('a:t') 
 
     mydict = {}
+    
     new_list = [n.contents[0] if type(n.contents[0]) != 'int' else int(n.contents[0]) for n in text_data]
     digits = [int(idx+1) for idx, val in enumerate(new_list) if val.isdigit()]
-
+    
     for idx, i in enumerate(digits):
         if idx != len(digits)-1:
-            mydict[new_list[i-1]] = ''.join(new_list[i:i+1])
+            mydict[new_list[i-1]] = ''.join(new_list[i:(digits[idx+1]-1)])
         else:
-            mydict[new_list[i-1]] = ''.join(new_list[i:])
+            mydict[new_list[i-1]] = ''.join(new_list[i:len(new_list)])
     return mydict
 
 from collections import Counter
