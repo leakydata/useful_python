@@ -167,17 +167,23 @@ def diagram_text(slide,rId):
     data = prs.slides[slide].shapes[0].part.related_parts[rId].blob
     soup = BeautifulSoup(data)
     text_data = soup.findAll('a:t') 
-
+    #print("TEXT DATA:",text_data)
     mydict = {}
     
-    new_list = [n.contents[0] if type(n.contents[0]) != 'int' else int(n.contents[0]) for n in text_data]
+    new_list = [n.contents[0].strip() if type(n.contents[0]) != 'int' else int(n.contents[0].strip()) for n in text_data]
     digits = [int(idx+1) for idx, val in enumerate(new_list) if val.isdigit()]
+    
+    
+    print("NEW LIST:",new_list)
+    print("DIGITS:",digits)
+    
     
     for idx, i in enumerate(digits):
         if idx != len(digits)-1:
-            mydict[new_list[i-1]] = ''.join(new_list[i:(digits[idx+1]-1)])
+            #print("PART1:",idx,"PART2:",new_list[i:(digits[idx+1]-1)])
+            mydict[idx] = ''.join(new_list[i:(digits[idx+1]-1)])
         else:
-            mydict[new_list[i-1]] = ''.join(new_list[i:len(new_list)])
+            mydict[idx] = ''.join(new_list[i:len(new_list)])
     return mydict
 
 from collections import Counter
