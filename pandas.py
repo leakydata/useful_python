@@ -70,3 +70,11 @@ def round_1(x):
 
 def round_2(x):
     return(round_half_up(float(x),2))
+
+
+##########################################
+# CONVERTING DATAFRAMES TO OTHER OBJECTS #
+##########################################
+
+#converts a dataframe to list of dictionaries / each row is a dict
+df.to_dict(orient='records') 
