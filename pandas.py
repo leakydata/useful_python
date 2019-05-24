@@ -48,7 +48,14 @@ def drop_exes(df):
     if len(df.loc[mask.any(axis=1)].index) >= 1:
         location = df.loc[mask.any(axis=1)].index[0]
         df.drop(df.index[location], inplace=True)
-
+        
+#Slightly simpler drop exes        
+def drop_exes(df):
+    location = df[df[df.columns[0]].str.contains(r"xxxxxxxx.*", na=False) == True]
+    if len(location) >= 1:
+        location = location.index[0]
+        df.drop(df.index[location], inplace=True)
+        
 # Reset the dataframe index and drop the old index to prevent it from possibly being added as a new column
 df.reset_index(drop=True)
 
