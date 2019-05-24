@@ -36,7 +36,7 @@ df = df.replace({r'\s+$': '', r'^\s+': ''}, regex=True).replace(r'\n',  ' ', reg
 
 # Find the row containing a string that is supposed to be a header and copy that row to the column names and remove the row
 def fix_headers(df,identifying_string):
-    mask = np.column_stack([df[col].str.contains(r"%s"%identifying_string, na=False) for col in df])
+    mask = np.column_stack([df[col].astype(str).str.contains(r"%s"%identifying_string, na=False) for col in df])
     if len(df.loc[mask.any(axis=1)].index) >= 1:
         row_location = df.loc[mask.any(axis=1)].index[0]
         df.rename(columns=df.iloc[row_location], inplace=True)
@@ -52,3 +52,14 @@ def drop_exes(df):
 # Reset the dataframe index and drop the old index to prevent it from possibly being added as a new column
 df.reset_index(drop=True)
 
+
+# Pandas/Numpy rounds 0.5 (halves) to the nearest even integer so I can't round whole dataframe without losing values to round truncation: this fixes that issue
+def round_half_up(n, decimals=0):
+    multiplier = 10 ** decimals
+    return math.floor(n*multiplier + 0.5) / multiplier
+
+def round_1(x):
+    return(round_half_up(float(x),1))
+
+def round_2(x):
+    return(round_half_up(float(x),2))
