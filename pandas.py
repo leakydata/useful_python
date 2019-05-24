@@ -78,3 +78,6 @@ def round_2(x):
 
 #converts a dataframe to list of dictionaries / each row is a dict
 df.to_dict(orient='records') 
+
+#Convert the dataframe to a csv and fix character encoding for excel and drop index so it doesn't end up in the csv
+df.to_csv('file.csv',encoding='utf-8-sig')
