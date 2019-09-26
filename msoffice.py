@@ -32,8 +32,7 @@ def hex_color_to_rgb(hex_color):
     return (r,g,b)
 
 
-# Detect the closest color in a dictionary of potential colors to a test color
-
+### Detect the closest color in a dictionary of potential colors to a test color
 # Calculates the euclidian distance of the RGB(x,y,z) color treated as a vector
 def distance(c1, c2):
     (r1,g1,b1) = c1
