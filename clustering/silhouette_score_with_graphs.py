@@ -5,6 +5,7 @@ from sklearn.metrics import silhouette_samples, silhouette_score
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import numpy as np
 import matplotlib.style as style
 
 range_n_clusters = [2, 3, 4, 5, 6]
