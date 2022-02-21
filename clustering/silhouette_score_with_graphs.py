@@ -99,4 +99,4 @@ plt.xlabel("Number of Clusters (k)")
 plt.ylabel("silhouette score")
 plt.show()
 
-print('The best number of clusters is:',sil_scores.index(max(sil_scores[1:]))+2) #because you skip 1 and the list is zero-indexed
+print('The best number of clusters is:',silhouette_avg_n_clusters.index(max(silhouette_avg_n_clusters[1:]))+2) #because you skip 1 and the list is zero-indexed
