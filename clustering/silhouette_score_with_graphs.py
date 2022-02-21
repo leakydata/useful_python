@@ -98,3 +98,5 @@ plt.plot(range_n_clusters, silhouette_avg_n_clusters)
 plt.xlabel("Number of Clusters (k)")
 plt.ylabel("silhouette score")
 plt.show()
+
+print('The best number of clusters is:',sil_scores.index(max(sil_scores[1:]))+2) #because you skip 1 and the list is zero-indexed
