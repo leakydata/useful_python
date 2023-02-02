@@ -1,3 +1,10 @@
+# Remove Column Heading Formatting In Excel Export
+pd.io.formats.excel.ExcelFormatter.header_style = None
+
+# Pandas Nans to None
+df = df.replace([np.nan], [None])
+df = df.where(pd.notnull(df), None)
+
 #Remove new line (\n) characters from the entire dataframe
 df = df.replace({r'\s+$': '', r'^\s+': ''}, regex=True).replace(r'\n',  ' ', regex=True)
 
