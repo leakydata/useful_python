@@ -1,5 +1,7 @@
 # Remove Column Heading Formatting In Excel Export
-pd.io.formats.excel.ExcelFormatter.header_style = None
+#pd.io.formats.excel.ExcelFormatter.header_style = None
+from pandas.io.formats import excel
+excel.ExcelFormatter.header_style = None
 
 # Pandas Nans to None
 df = df.replace([np.nan], [None])
