@@ -44,7 +44,7 @@ def onclick(event):
                 fig.canvas.draw()
 
 # Load your image here
-img_path = r'C:\Users\njones\Pictures\__RECEIPT_TESTS\714011681.jpg'
+img_path = r'\filepath\here'
 image_data = cv2.imread(img_path)
 img = image_data
 image_data = cv2.cvtColor(image_data, cv2.COLOR_BGR2RGB)
