@@ -1,0 +1,6 @@
+https://gist.github.com/mark05e/d9cccae129dd11a21d7219eddd7d9923
+pip install Pillow
+pip install flask==2.1.3
+pip install Werkzeug==2.0.3
+pip install WTForms==2.3.3 -U
+pip install flask-wtf
